@@ -8,5 +8,6 @@ namespace Repository.Entities
     {
         public User User { get; set; }
         public Game Game { get; set; }
+        public double Rate { get; set; }
     }
 }

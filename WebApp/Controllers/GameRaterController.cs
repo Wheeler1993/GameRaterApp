@@ -8,32 +8,33 @@ using Microsoft.Extensions.Logging;
 
 namespace WebApp.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
-    [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    [Route("[controller]/[action]")]
+    public class GameRaterController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<GameRaterController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public GameRaterController(ILogger<GameRaterController> logger)
         {
             _logger = logger;
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public IEnumerable<GameRateModel> GameRates()
         {
             var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            return Enumerable.Range(1, 5).Select(index => new GameRateModel
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
+                Title = "Game" + index.ToString(),
+                ReleaseDate = new DateTime(2000, rng.Next(1, 12), 2).ToShortDateString(),
+                Releaser = "Valaki",
+                AvgRating = rng.Next(1, 5)
             })
             .ToArray();
         }
