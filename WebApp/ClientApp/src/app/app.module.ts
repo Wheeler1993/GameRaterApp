@@ -12,6 +12,7 @@ import { EditableRatesComponent } from './editable-rates/editable-rates.componen
 import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.module';
 import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { AuthorizeInterceptor } from 'src/api-authorization/authorize.intercepto
     HttpClientModule,
     FormsModule,
     ApiAuthorizationModule,
+    NgbModule,
     RouterModule.forRoot([
       { path: '', component: EditableRatesComponent, pathMatch: 'full' },
       { path: 'myratings', component: EditableRatesComponent }

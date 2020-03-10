@@ -1,6 +1,3 @@
-<!--<h1 id="tableLabel">Weather forecast</h1>-->
-
-
 <p *ngIf="!gameRates"><em>Loading...</em></p>
 
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="gameRates">
@@ -9,7 +6,7 @@
       <th>Title</th>
       <th>Release date</th>
       <th>Releaser</th>
-      <th>Average rate</th>
+      <th>Rating</th>
     </tr>
   </thead>
   <tbody>
@@ -17,7 +14,7 @@
       <td>{{ gameRate.title }}</td>
       <td>{{ gameRate.releaseDate }}</td>
       <td>{{ gameRate.releaser }}</td>
-      <td>{{ gameRate.avgRating }}</td>
+      <td ><ngb-rating style="font-size:1.5em; " [(rate)]="gameRate.avgRating" max="5" [readonly]="!isAuthenticated"></ngb-rating></td>
     </tr>
   </tbody>
 </table>

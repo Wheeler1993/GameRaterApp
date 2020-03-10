@@ -13,7 +13,6 @@ export class EditableRatesComponent {
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, authorizeService: AuthorizeService) {
     authorizeService.isAuthenticated().subscribe({ next: isAuth => this.isAuthenticated = isAuth });
     http.get<GameRate[]>(baseUrl + 'GameRater/gamerates').subscribe(result => {
-      debugger;
       this.gameRates = result;
     }, error => console.error(error));
   }
