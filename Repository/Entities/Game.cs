@@ -6,6 +6,7 @@ namespace Repository.Entities
 {
     public class Game : Entity
     {
+        //public string GameId { get; set; }
         public string Title { get; set; }
         public DateTime ReleaseDate { get; set; }
         public string Releaser { get; set; }

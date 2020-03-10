@@ -17,6 +17,8 @@
     <Compile Remove="Migrations\20200306150111_GameProperties.Designer.cs" />
     <Compile Remove="Migrations\20200306152739_GameRateForeignKeys.cs" />
     <Compile Remove="Migrations\20200306152739_GameRateForeignKeys.Designer.cs" />
+    <Compile Remove="Migrations\20200310104503_IntIdToEntities.cs" />
+    <Compile Remove="Migrations\20200310104503_IntIdToEntities.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
