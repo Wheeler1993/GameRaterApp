@@ -1,42 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Security.Claims;
+using BusinessLogic;
+using BusinessLogic.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Repository.Entities;
 
 namespace WebApp.Controllers
 {
-    //[Authorize]
     [ApiController]
     [Route("[controller]/[action]")]
     public class GameRaterController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
 
         private readonly ILogger<GameRaterController> _logger;
+        private readonly IGameRateManager GameRateManager;
 
-        public GameRaterController(ILogger<GameRaterController> logger)
+        public GameRaterController(ILogger<GameRaterController> logger, IGameRateManager gameRateManager)
         {
             _logger = logger;
+            GameRateManager = gameRateManager;
         }
 
         [HttpGet]
         public IEnumerable<GameRateModel> GameRates()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new GameRateModel
-            {
-                Title = "Game" + index.ToString(),
-                ReleaseDate = new DateTime(2000, rng.Next(1, 12), 2).ToShortDateString(),
-                Releaser = "Valaki",
-                AvgRating = rng.Next(1, 5)
-            })
-            .ToArray();
+            return GameRateManager.GetAllGameRates();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult SaveGameRate(UserGameRateModel userRate)
+        {
+            userRate.UserId =  User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if (GameRateManager.SaveGameRate(userRate))
+                return Ok();
+            else
+                return BadRequest();
         }
     }
 }

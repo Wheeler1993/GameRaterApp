@@ -1,5 +1,11 @@
 <p *ngIf="!gameRates"><em>Loading...</em></p>
 
+<ng-template #t let-fill="fill">
+  <span class="star" [class.full]="fill === 100">
+    <span class="half" [style.width.%]="fill">&hearts;</span>&hearts;
+  </span>
+</ng-template>
+
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="gameRates">
   <thead>
     <tr>
@@ -14,7 +20,7 @@
       <td>{{ gameRate.title }}</td>
       <td>{{ gameRate.releaseDate }}</td>
       <td>{{ gameRate.releaser }}</td>
-      <td ><ngb-rating style="font-size:1.5em; " [(rate)]="gameRate.avgRating" max="5" [readonly]="!isAuthenticated"></ngb-rating></td>
+      <td ><ngb-rating style="font-size:1em; " [rate]="gameRate.avgRating" [starTemplate]="t" max="5" [readonly]="!isAuthenticated" (rateChange)="saveUserRate(gameRate.gameId, $event)"> </ngb-rating></td>
     </tr>
   </tbody>
 </table>

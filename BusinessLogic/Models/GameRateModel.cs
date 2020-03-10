@@ -1,9 +1,10 @@
 using System;
 
-namespace WebApp
+namespace BusinessLogic.Models
 {
     public class GameRateModel
     {
+        public int GameId { get; set; }
         public string Title { get; set; }
         public string ReleaseDate { get; set; }
         public string Releaser { get; set; }
