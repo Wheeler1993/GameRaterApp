@@ -51,5 +51,17 @@ namespace BusinessLogic
             else
                 return false;
         }
+
+        public List<GameRateModel> GetUsersGameRates(string userId)
+        {
+            List<GameRateModel> userRates = DbContext.GamesRates.Where(rate => rate.User.Id == userId)
+                .Select(rate => new GameRateModel() { GameId=rate.Game.Id, Title = rate.Game.Title, ReleaseDate=rate.Game.ReleaseDate.ToShortDateString(), Releaser=rate.Game.Releaser, AvgRating=rate.Rate }).ToList();
+            return userRates;
+        }
+
+        public GameRateWithDetailsModel GetGameRateWithDetails(int gameId)
+        {
+            return DbContext.Games.Where(game => game.Id == gameId).Include(game => game.Rates).Select(game => new GameRateWithDetailsModel() { GameId = game.Id, Title = game.Title, ReleaseDate = game.ReleaseDate.ToShortDateString(), Releaser = game.Releaser, AvgRating = game.Rates.Average(rate => rate.Rate) }).FirstOrDefault();
+        }
     }
 }

@@ -1,11 +1,10 @@
 <p *ngIf="!gameRates"><em>Loading...</em></p>
 
-<ng-template #t let-fill="fill">
-  <span class="star" [class.full]="fill === 100">
-    <span class="half" [style.width.%]="fill">&hearts;</span>&hearts;
-  </span>
-</ng-template>
 
+<div *ngIf="isAuthenticated" style="width:100%; display:flex; flex-direction:row-reverse">
+  <button *ngIf="!isUserRatesLoaded" class="btn-success" (click)="loadUserRatings()">My ratings</button>
+  <button *ngIf="isUserRatesLoaded" class="btn-success" (click)="loadAllRating()">All ratings</button>
+</div>
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="gameRates">
   <thead>
     <tr>
@@ -17,10 +16,16 @@
   </thead>
   <tbody>
     <tr *ngFor="let gameRate of gameRates">
-      <td>{{ gameRate.title }}</td>
+      <td ><a [routerLink]="['gamedetails', gameRate.gameId]">{{ gameRate.title }}</a></td>
       <td>{{ gameRate.releaseDate }}</td>
       <td>{{ gameRate.releaser }}</td>
-      <td ><ngb-rating style="font-size:1em; " [rate]="gameRate.avgRating" [starTemplate]="t" max="5" [readonly]="!isAuthenticated" (rateChange)="saveUserRate(gameRate.gameId, $event)"> </ngb-rating></td>
+      <td><ngb-rating style="font-size:1em; " [rate]="gameRate.avgRating" [starTemplate]="t" max="5" [readonly]="!isAuthenticated" (rateChange)="saveUserRate(gameRate.gameId, $event)"> </ngb-rating></td>
     </tr>
   </tbody>
 </table>
+
+<ng-template #t let-fill="fill">
+  <span class="star" [class.full]="fill === 100">
+    <span class="half" [style.width.%]="fill">&hearts;</span>&hearts;
+  </span>
+</ng-template>

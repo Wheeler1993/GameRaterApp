@@ -13,6 +13,7 @@ import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.
 import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { GameDeatilsComponent } from './game-deatils/game-deatils.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NavMenuComponent,
     HomeComponent,
     CounterComponent,
-    GameRatesComponent
+    GameRatesComponent,
+    GameDeatilsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -30,7 +32,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgbModule,
     RouterModule.forRoot([
       { path: '', component: GameRatesComponent, pathMatch: 'full' },
-      { path: 'myratings', component: GameRatesComponent }
+      { path: 'myratings', component: GameRatesComponent },
+      { path: 'gamedetails/:id', component: GameDeatilsComponent }
       //{ path: 'fetch-data', component: GameRatesComponent, canActivate: [AuthorizeGuard] },
     ])
   ],

@@ -4,7 +4,7 @@ import { AuthorizeService } from 'src/api-authorization/authorize.service';
 import { error } from '@angular/compiler/src/util';
 
 @Component({
-  selector: 'app-fetch-data',
+  selector: 'game-rates',
   templateUrl: './game-rates.component.html',
   styleUrls: ['./game-rates.component.css']
 })
@@ -13,7 +13,7 @@ export class GameRatesComponent {
   private isAuthenticated: boolean;
   http: HttpClient;
   baseUrl: string;
-  isUserRate: boolean = true;
+  isUserRatesLoaded: boolean;
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, authorizeService: AuthorizeService) {
     this.baseUrl = baseUrl;
@@ -23,20 +23,29 @@ export class GameRatesComponent {
   }
 
   loadAllRating() {
-    this.http.get<GameRate[]>(this.baseUrl + 'GameRater/gamerates').subscribe(result => {
+    this.http.get<GameRate[]>(this.baseUrl + 'GameRater/GetAllGameRates').subscribe(result => {
       this.gameRates = result;
+      this.isUserRatesLoaded = false;
     }, error => console.error(error));
   }
 
   public saveUserRate(gameId: Number, event: Number) {
     this.http.post<void>(this.baseUrl + 'GameRater/SaveGameRate', { gameId: gameId, userRate: event }).subscribe(() => {
-      this.loadAllRating();
-      this.isUserRate = false;
+      if (!this.isUserRatesLoaded) {
+        this.loadAllRating();
+      }
+    }, error => console.error(error));
+  }
+
+  public loadUserRatings() {
+    this.http.get<GameRate[]>(this.baseUrl + 'GameRater/GetUserGameRates').subscribe(result => {
+      this.gameRates = result;
+      this.isUserRatesLoaded = true;
     }, error => console.error(error));
   }
 }
 
-interface GameRate {
+export class GameRate {
   gameId: number;
   title: string;
   releaseDate: string;

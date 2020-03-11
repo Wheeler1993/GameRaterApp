@@ -27,7 +27,7 @@ namespace WebApp.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<GameRateModel> GameRates()
+        public IEnumerable<GameRateModel> GetAllGameRates()
         {
             return GameRateManager.GetAllGameRates();
         }
@@ -41,6 +41,19 @@ namespace WebApp.Controllers
                 return Ok();
             else
                 return BadRequest();
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IEnumerable<GameRateModel> GetUserGameRates()
+        {
+            return GameRateManager.GetUsersGameRates(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+        }
+
+        [HttpGet]
+        public GameRateWithDetailsModel GetGameRateWithDetails(int gameId)
+        {
+            return GameRateManager.GetGameRateWithDetails(gameId);
         }
     }
 }
