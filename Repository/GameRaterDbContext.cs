@@ -14,6 +14,7 @@ namespace Repository
     {
         public DbSet<Game> Games { get; set; }
         public DbSet<GameRate> GamesRates { get; set; }
+        public DbSet<Releaser> Releasers { get; set; }
         public GameRaterDbContext(
             DbContextOptions options,
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)

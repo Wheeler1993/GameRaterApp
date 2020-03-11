@@ -8,9 +8,10 @@ namespace Repository.Entities
     {
         public string Title { get; set; }
         public DateTime ReleaseDate { get; set; }
-        public string Releaser { get; set; }
+        public Releaser Releaser { get; set; }
         public string Cover { get; set; }
         public double AvgRating { get; set; }
+        public string Details { get; set; }
         public List<GameRate> Rates { get; set; }
     }
 }
