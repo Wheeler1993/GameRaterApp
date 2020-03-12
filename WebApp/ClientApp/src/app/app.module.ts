@@ -31,9 +31,10 @@ import { GameDeatilsComponent } from './game-deatils/game-deatils.component';
     ApiAuthorizationModule,
     NgbModule,
     RouterModule.forRoot([
-      { path: '', component: GameRatesComponent, pathMatch: 'full' },
-      { path: 'myratings', component: GameRatesComponent },
-      { path: 'gamedetails/:id', component: GameDeatilsComponent }
+      { path: '', component: GameRatesComponent, pathMatch: 'full', data: { isMyRating: false } },
+      { path: 'myratings', component: GameRatesComponent, data: { isMyRating: true } },
+      { path: 'byreleaser/:releaserId', component: GameRatesComponent },
+      { path: 'gamedetails/:gameId', component: GameDeatilsComponent }
       //{ path: 'fetch-data', component: GameRatesComponent, canActivate: [AuthorizeGuard] },
     ])
   ],

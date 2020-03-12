@@ -1,28 +1,38 @@
-<p *ngIf="!gameRates"><em>Loading...</em></p>
+<p *ngIf="!gameRatesOfCurrentPage"><em>Loading...</em></p>
 
 
-<div *ngIf="isAuthenticated" style="width:100%; display:flex; flex-direction:row-reverse">
-  <button *ngIf="!isUserRatesLoaded" class="btn-success" (click)="loadUserRatings()">My ratings</button>
-  <button *ngIf="isUserRatesLoaded" class="btn-success" (click)="loadAllRating()">All ratings</button>
+<div *ngIf="isAuthenticated" style="width:100%; display:flex; flex-direction:row-reverse; ">
+  <div *ngIf="!isMyRates" class="tableHeader">
+    <label *ngIf="releaserId && gameRatesOfCurrentPage" class="label">Games from {{gameRates[0].releaser}}</label>
+    <label *ngIf="!isRatesByReleaser" class="label">All games</label>
+    <button class="btn-success" [routerLink]="['/myratings']"  >My ratings</button>
+   </div>
+  <div *ngIf="isMyRates" class="tableHeader">
+    <label class="label">My ratings</label>
+    <button class="btn-success" [routerLink]="['']"> All ratings </button>
+  </div>
 </div>
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="gameRates">
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="gameRatesOfCurrentPage">
   <thead>
     <tr>
       <th>Title</th>
       <th>Release date</th>
-      <th>Releaser</th>
+      <th *ngIf="!releaserId">Releaser</th>
+      <th>Cover</th>
       <th>Rating</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let gameRate of gameRates">
-      <td ><a [routerLink]="['gamedetails', gameRate.gameId]">{{ gameRate.title }}</a></td>
+    <tr *ngFor="let gameRate of gameRatesOfCurrentPage">
+      <td ><a [routerLink]="['/gamedetails', gameRate.gameId]">{{ gameRate.title }}</a></td>
       <td>{{ gameRate.releaseDate }}</td>
-      <td>{{ gameRate.releaser }}</td>
+      <td *ngIf="!releaserId"><a [routerLink]="['/byreleaser', gameRate.releaserId]">{{ gameRate.releaser }}</a></td>
+      <td><img style="max-height:150px; max-width:150px" [src]="gameRate.cover" /></td>
       <td><ngb-rating style="font-size:1em; " [rate]="gameRate.avgRating" [starTemplate]="t" max="5" [readonly]="!isAuthenticated" (rateChange)="saveUserRate(gameRate.gameId, $event)"> </ngb-rating></td>
     </tr>
   </tbody>
 </table>
+<ngb-pagination *ngIf="gameRatesOfCurrentPage" [collectionSize]="numberOfLoadedRates" [pageSize]="pageSize"  (pageChange)="pageChange($event)"  [boundaryLinks]="true"></ngb-pagination>
 
 <ng-template #t let-fill="fill">
   <span class="star" [class.full]="fill === 100">

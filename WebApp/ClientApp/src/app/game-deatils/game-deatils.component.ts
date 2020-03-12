@@ -21,7 +21,7 @@ export class GameDeatilsComponent implements OnInit {
   }
 
   ngOnInit() {
-    let gameId = this.route.snapshot.paramMap.get('id');
+    let gameId = this.route.snapshot.paramMap.get('gameId');
     this.loadRatingWithDetail(gameId);
   }
 

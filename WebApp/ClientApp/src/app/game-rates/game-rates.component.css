@@ -15,3 +15,13 @@
   overflow: hidden;
   color: green;
 }
+
+.label{
+    font-weight: bold;
+    font-size: 2em;
+}
+.tableHeader {
+  width: 100%;
+  display: flex;
+  justify-content: space-between
+}

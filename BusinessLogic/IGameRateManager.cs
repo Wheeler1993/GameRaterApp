@@ -12,5 +12,6 @@ namespace BusinessLogic
         public bool SaveGameRate(UserGameRateModel userRate);
         public List<GameRateModel> GetUsersGameRates(string userId);
         public GameRateWithDetailsModel GetGameRateWithDetails(int gameId);
+        public List<GameRateModel> GameRatesByReleaser(int releaserId);
     }
 }

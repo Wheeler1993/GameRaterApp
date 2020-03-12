@@ -60,5 +60,19 @@ namespace BusinessLogic
         {
             return DbContext.Games.Where(game => game.Id == gameId).Select(game => new GameRateWithDetailsModel() { GameId = game.Id, Title = game.Title, Cover=game.Cover, ReleaseDate = game.ReleaseDate.ToShortDateString(), Releaser = game.Releaser.Name, ReleaserId=game.Releaser.Id, AvgRating = game.Rates.Average(rate => rate.Rate), Details=game.Details }).FirstOrDefault();
         }
+
+        public List<GameRateModel> GameRatesByReleaser(int releaserId)
+        {
+            return DbContext.Games.Where(game => game.Releaser.Id == releaserId).Select(game => new GameRateModel()
+            {
+                GameId = game.Id,
+                Title = game.Title,
+                Cover = game.Cover,
+                ReleaseDate = game.ReleaseDate.ToShortDateString(),
+                Releaser = game.Releaser.Name,
+                ReleaserId = game.Releaser.Id,
+                AvgRating = game.Rates.Average(rate => rate.Rate)
+            }).ToList();
+        }
     }
 }
