@@ -20,6 +20,7 @@ export class GameRatesComponent {
   releaserId: number;
   numberOfLoadedRates: number;
   pageSize: number;
+  currentPage: number = 1;
   
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, authorizeService: AuthorizeService, route: ActivatedRoute) {
@@ -47,9 +48,10 @@ export class GameRatesComponent {
   }
 
   public pageChange(page: number) {
-    let skip = (page - 1) * this.pageSize;
-    let take = page * this.pageSize
-    this.gameRatesOfCurrentPage = this.allLoadedGameRates.slice(skip, take);
+    this.currentPage = page;
+    let firstElementOfPage = (page - 1) * this.pageSize;
+    let lastElementOfPage = page * this.pageSize;
+    this.gameRatesOfCurrentPage = this.allLoadedGameRates.slice(firstElementOfPage, lastElementOfPage);
   }
 
   InitializeVariables(result: GameRate[]) {
@@ -57,7 +59,7 @@ export class GameRatesComponent {
       this.pageSize = pageSize;
       this.allLoadedGameRates = result;
       this.numberOfLoadedRates = result.length;
-      this.pageChange(1);
+      this.pageChange(this.currentPage);
     })
   }
 
@@ -69,9 +71,10 @@ export class GameRatesComponent {
 
   public saveUserRate(gameId: Number, event: Number) {
     this.http.post<void>(this.baseUrl + 'GameRater/SaveGameRate', { gameId: gameId, userRate: event }).subscribe(() => {
-      if (!this.isMyRates) {
+      if (!this.isMyRates && !this.releaserId) 
         this.loadAllRating();
-      }
+      else if (this.releaserId)
+        this.loadRatingsByReleaser(this.releaserId);
     }, error => console.error(error));
   }
 

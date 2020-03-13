@@ -2,7 +2,7 @@
   <div class="container"><label class="label" >Title:</label> <span> {{game.title}}</span></div>
   <div class="container"><label class="label">Release date:</label><span style="padding-left: 50px"> {{game.releaseDate}}</span></div>
   <div class="container"><label class="label">Releaser</label><span>{{game.releaser}}</span></div>
-  <div class="container"><label class="label">Rating</label><span><ngb-rating style="font-size:1em; " [rate]="game.avgRating" [starTemplate]="t" max="5" [readonly]="false" (rateChange)="saveUserRate(game.gameId, $event)"> </ngb-rating></span></div>
+  <div class="container"><label class="label">Rating</label><span><ngb-rating style="font-size:1em; " [rate]="game.avgRating" [starTemplate]="t" max="10" [readonly]="false" (rateChange)="saveUserRate(game.gameId, $event)"> </ngb-rating></span></div>
   <div class="container"><label class="label">Details: </label><span>{{game.details}}</span></div>
 </div>
 

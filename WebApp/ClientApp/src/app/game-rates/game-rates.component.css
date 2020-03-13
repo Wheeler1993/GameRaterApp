@@ -20,8 +20,14 @@
     font-weight: bold;
     font-size: 2em;
 }
-.tableHeader {
+.flexContainer {
   width: 100%;
   display: flex;
+}
+.tableHeader {
+  
   justify-content: space-between
+}
+.pagerContainer{
+    justify-content:center;
 }
