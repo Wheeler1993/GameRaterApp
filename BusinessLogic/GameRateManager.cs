@@ -30,7 +30,7 @@ namespace BusinessLogic
                 Cover = game.Cover,
                 ReleaseDate = game.ReleaseDate.ToShortDateString(),
                 Releaser = game.Releaser.Name,
-                ReleaserId = game.Releaser.Id,
+                ReleaserId = game.ReleaserId,
                 AvgRating = game.Rates.Average(rate => rate.Rate)
             }).ToList();
             return rates;
@@ -38,7 +38,7 @@ namespace BusinessLogic
 
         public bool SaveGameRate(UserGameRateModel userRate)
         {
-            GameRate userRateEntity = DbContext.GamesRates.Where(rate => rate.Game.Id == userRate.GameId && rate.User.Id == userRate.UserId).FirstOrDefault();
+            GameRate userRateEntity = DbContext.GamesRates.Where(rate => rate.GameId == userRate.GameId && rate.UserId == userRate.UserId).FirstOrDefault();
             if (userRateEntity != null)
                 userRateEntity.Rate = userRate.UserRate;
             else
@@ -51,28 +51,28 @@ namespace BusinessLogic
 
         public List<GameRateModel> GetUsersGameRates(string userId)
         {
-            List<GameRateModel> userRates = DbContext.GamesRates.Where(rate => rate.User.Id == userId)
-                .Select(rate => new GameRateModel() { GameId=rate.Game.Id, Title = rate.Game.Title, Cover=rate.Game.Cover, ReleaseDate=rate.Game.ReleaseDate.ToShortDateString(), Releaser=rate.Game.Releaser.Name, ReleaserId=rate.Game.Releaser.Id, AvgRating=rate.Rate }).ToList();
+            List<GameRateModel> userRates = DbContext.GamesRates.Where(rate => rate.UserId == userId)
+                .Select(rate => new GameRateModel() { GameId=rate.GameId, Title = rate.Game.Title, Cover=rate.Game.Cover, ReleaseDate=rate.Game.ReleaseDate.ToShortDateString(), Releaser=rate.Game.Releaser.Name, ReleaserId=rate.Game.ReleaserId, AvgRating=rate.Rate }).ToList();
             return userRates;
         }
 
         public GameRateWithDetailsModel GetGameRateWithDetails(int gameId)
         {
-            return DbContext.Games.Where(game => game.Id == gameId).Select(game => new GameRateWithDetailsModel() { GameId = game.Id, Title = game.Title, Cover=game.Cover, ReleaseDate = game.ReleaseDate.ToShortDateString(), Releaser = game.Releaser.Name, ReleaserId=game.Releaser.Id, AvgRating = game.Rates.Average(rate => rate.Rate), Details=game.Details }).FirstOrDefault();
+            return DbContext.Games.Where(game => game.Id == gameId).Select(game => new GameRateWithDetailsModel() { GameId = game.Id, Title = game.Title, Cover=game.Cover, ReleaseDate = game.ReleaseDate.ToShortDateString(), Releaser = game.Releaser.Name, ReleaserId=game.ReleaserId, AvgRating = game.Rates.Average(rate => rate.Rate), Details=game.Details }).FirstOrDefault();
         }
 
         public List<GameRateModel> GameRatesByReleaser(int releaserId)
         {
-            return DbContext.Games.Where(game => game.Releaser.Id == releaserId).Select(game => new GameRateModel()
+            return DbContext.Releasers.Where(releaser => releaser.Id == releaserId).Select(releaser => releaser.Games.Select(game => new GameRateModel()
             {
                 GameId = game.Id,
                 Title = game.Title,
                 Cover = game.Cover,
                 ReleaseDate = game.ReleaseDate.ToShortDateString(),
                 Releaser = game.Releaser.Name,
-                ReleaserId = game.Releaser.Id,
+                ReleaserId = game.ReleaserId,
                 AvgRating = game.Rates.Average(rate => rate.Rate)
-            }).ToList();
+            })).FirstOrDefault().ToList();
         }
     }
 }

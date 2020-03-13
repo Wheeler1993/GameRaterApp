@@ -20,5 +20,13 @@ namespace Repository
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new GameEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new GameRateEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ReleaserEntityTypeConfiguration());
+        }
     }
 }

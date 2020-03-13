@@ -21,6 +21,14 @@
     <Compile Remove="Migrations\20200310104503_IntIdToEntities.Designer.cs" />
     <Compile Remove="Migrations\20200310125313_navprop.cs" />
     <Compile Remove="Migrations\20200310125313_navprop.Designer.cs" />
+    <Compile Remove="Migrations\20200313144627_fluentConfiguration.cs" />
+    <Compile Remove="Migrations\20200313144627_fluentConfiguration.Designer.cs" />
+    <Compile Remove="Migrations\20200313145053_fluentConfiguration.cs" />
+    <Compile Remove="Migrations\20200313145053_fluentConfiguration.Designer.cs" />
+    <Compile Remove="Migrations\20200313152633_fluentConfiguration.cs" />
+    <Compile Remove="Migrations\20200313152633_fluentConfiguration.Designer.cs" />
+    <Compile Remove="Migrations\20200313153307_fluentConfiguration.cs" />
+    <Compile Remove="Migrations\20200313153307_fluentConfiguration.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

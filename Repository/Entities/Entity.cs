@@ -1,8 +1,6 @@
-﻿
-
-namespace Repository.Entities
+﻿namespace Repository.Entities
 {
-    public class Entity
+    public interface Entity
     {
         public int Id { get; set; }
     }
