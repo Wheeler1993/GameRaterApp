@@ -14,7 +14,7 @@ namespace Repository.Entities
         public Releaser Releaser { get; set; }
         public int ReleaserId { get; set; }
         public string Cover { get; set; }
-        public double AvgRating { get; set; }
+        public float AvgRating { get; set; }
         public string Details { get; set; }
         public List<GameRate> Rates { get; set; }
     }

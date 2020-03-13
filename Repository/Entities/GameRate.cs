@@ -13,7 +13,7 @@ namespace Repository.Entities
         public string UserId { get; set; }
         public Game Game { get; set; }
         public int GameId { get; set; }
-        public double Rate { get; set; }
+        public byte Rate { get; set; }
     }
 
     internal class GameRateEntityTypeConfiguration : IEntityTypeConfiguration<GameRate>

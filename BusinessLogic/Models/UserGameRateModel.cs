@@ -8,6 +8,6 @@ namespace BusinessLogic.Models
     {
         public string UserId { get; set; }
         public int GameId { get; set; }
-        public int UserRate { get; set; }
+        public byte UserRate { get; set; }
     }
 }
