@@ -1,10 +1,15 @@
-<div *ngIf="game" style="display: inline-block; font-size: 2em">
-  <div class="container"><label class="label" >Title:</label> <span> {{game.title}}</span></div>
-  <div class="container"><label class="label">Release date:</label><span style="padding-left: 50px"> {{game.releaseDate}}</span></div>
-  <div class="container"><label class="label">Releaser</label><span>{{game.releaser}}</span></div>
-  <div class="container"><label class="label">Rating</label><span><ngb-rating style="font-size:1em; " [rate]="game.avgRating" [starTemplate]="t" max="10" [readonly]="false" (rateChange)="saveUserRate(game.gameId, $event)"> </ngb-rating></span></div>
-  <div class="container"><label class="label">Details: </label><span>{{game.details}}</span></div>
+<div style="display: flex; justify-content: center;">
+  <h1>Details of {{game.title}}</h1>
 </div>
+  <div style="display: flex; justify-content: center; ">
+    <div *ngIf="game" style="display: inline-block; font-size: 2em; padding-right:20px">
+      <div class="container"><label class="label">Release date:</label><span style="padding-left: 50px"> {{game.releaseDate}}</span></div>
+      <div class="container"><label class="label">Releaser</label><span>{{game.releaser}}</span></div>
+      <div class="container"><label class="label">Rating</label><span><ngb-rating style="font-size:1em; " [rate]="game.avgRating" [starTemplate]="t" max="10" [readonly]="false" (rateChange)="saveUserRate(game.gameId, $event)"> </ngb-rating></span></div>
+      <div class="container"><label class="label">Details: </label><span>{{game.details}}</span></div>
+    </div>
+    <img [src]="game.cover" />
+  </div>
 
 <ng-template #t let-fill="fill">
   <span class="star" [class.full]="fill === 100">

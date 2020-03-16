@@ -31,3 +31,8 @@
 .pagerContainer{
     justify-content:center;
 }
+
+.buttonContainer{
+    display: flex;
+    align-items: stretch;
+}

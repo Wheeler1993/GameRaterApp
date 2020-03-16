@@ -1,14 +1,14 @@
 <p *ngIf="!gameRatesOfCurrentPage"><em>Loading...</em></p>
 
 
-<div *ngIf="isAuthenticated" class="flexContainer tableHeader">
+<div class="flexContainer tableHeader">
   <div >
     <label *ngIf="releaserId && gameRatesOfCurrentPage" class="label">Games from {{gameRatesOfCurrentPage[0].releaser}}</label>
     <label *ngIf="!releaserId && !isMyRates" class="label">All games</label>
     <label *ngIf="isMyRates" class="label">My ratings</label>
    </div>
-  <div>
-    <button class="btn-success" *ngIf="!isMyRates || releaserId" [routerLink]="['/myratings']">My ratings</button>
+  <div class="buttonContainer">
+    <button class="btn-success" *ngIf="isAuthenticated && (!isMyRates || releaserId)" [routerLink]="['/myratings']">My ratings</button>
     <button class="btn-success" *ngIf="isMyRates || releaserId" [routerLink]="['']"> All ratings </button>
   </div>
 </div>
